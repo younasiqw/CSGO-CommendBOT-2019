@@ -1,4 +1,4 @@
-# CSGO-CommendBOT
+# CSGO-CommendBOT-2019
 Node.js Commend BOT for CS:GO (2019) 
 
 A node-steam plugin for commending players in Counter-Strike: Global Offensive.
