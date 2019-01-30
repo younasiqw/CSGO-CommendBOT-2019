@@ -5,9 +5,9 @@ A node-steam plugin for commending players in Counter-Strike: Global Offensive.
 
 1. Install Node JS (if you already install this, skip this step)
 
-32 bit installer : https://nodejs.org/dist/v6.9.2/node-v6.9.2-x86.msi
+for 32 bit installer : https://nodejs.org/dist/v6.9.2/node-v6.9.2-x86.msi
 
-64 bit installer : https://nodejs.org/dist/v6.9.2/node-v6.9.2-x64.msi
+for 64 bit installer : https://nodejs.org/dist/v6.9.2/node-v6.9.2-x64.msi
 
 2. Download my files
 Extract to Desktop, open "commend" folder and add some accounts to accounts.txt
