@@ -15,7 +15,9 @@ Extract to Desktop, open "commend" folder and add some accounts to accounts.txt
 3. Open Node.js Command Prompt (this one : https://i.imgur.com/L40TN6s.png)
 
 4. After that, type this command
+
 cd desktop (enter from your keyboard)
+
 cd commend (enter from your keyboard)
 
 5. Then, type : npm start (enter from your keyboard)
