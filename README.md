@@ -24,6 +24,7 @@ cd commend (enter from your keyboard)
 5. Then, type : npm start (enter from your keyboard)
 
 6. Input your Steam ID 64, something like this :7656119xxxxxxx (you can do copy and paste)
+
 If you dont know your ID 64, convert your profile link to : steamid.io
 
 7. After you paste your ID 64, hit Enter from your keyboard
