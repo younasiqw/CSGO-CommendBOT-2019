@@ -10,6 +10,7 @@ for 32 bit installer : https://nodejs.org/dist/v6.9.2/node-v6.9.2-x86.msi
 for 64 bit installer : https://nodejs.org/dist/v6.9.2/node-v6.9.2-x64.msi
 
 2. Download commend.rar file
+
 Extract to Desktop, open "commend" folder and add some accounts to accounts.txt
 
 3. Open Node.js Command Prompt (this one : https://i.imgur.com/L40TN6s.png)
