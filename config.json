@@ -1,0 +1,20 @@
+{
+	"commend": {
+		"friendly": true,
+		"teaching": true,
+		"leader": true
+	},
+	"account": {
+		"username": "XXXXX",
+		"password": "XXXXX",
+		"sharedSecret": ""
+	},
+	"method": "LOGIN",
+	"target": "https://steamcommunity.com/id/XXXXX",
+	"serverID": "[A:1:2884717575:12654]",
+	"matchID": "0",
+	"toSend": 40,
+	"cooldown": 28800000,
+	"betweenChunks": 300000,
+	"steamWebAPIKey": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}

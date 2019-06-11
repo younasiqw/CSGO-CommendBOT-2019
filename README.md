@@ -1,32 +1,64 @@
-# [PATCHED] CSGO-CommendBOT-2019
-Node.js Commend BOT for CS:GO (2019) 
+# CSGO Commend Bot
+**You are viewing an experimental branch including a commend bot rewrite. Use with caution.**
 
-A node-steam plugin for commending players in Counter-Strike: Global Offensive.
+If you're a developer and want to know how to fix your own commend bot its very simple. Just set `steam_id_gs` to a valid server steam ID, on your target's account & bot accounts. Switch after 20 commends and repeat.
 
-1. Install Node JS (if you already install this, skip this step)
+# Restrictions
+Valve changed it so that you now need to *be* on a server before you can commend someone. There also is a limit of the amount of commends you can send per server, that limit is set to 20. Due to this you need your targets Steam details, so you can login and change server after 20 commends. This also **heavily** impacts speed.
 
-for 32 bit installer : https://nodejs.org/dist/v6.9.2/node-v6.9.2-x86.msi
+# **This version has a major issue**
+Typically after ~20 commends it stops working all together, despite closing Steam connection and relogging. Sometimes it works for a little more, most of the time it doesn't. You can do another 20 after restarting the script.
 
-for 64 bit installer : https://nodejs.org/dist/v6.9.2/node-v6.9.2-x64.msi
+# Future
+- Add back the colors
+- Add the ability to remove commends
+- Add the ability to commend three times with one account per 24 hours instead of once every 8 hours
 
-2. Download commend.rar file
+# Requirements
+- [NodeJS **v11 or later**](https://nodejs.org/)
+- [Little bit of JSON knowledge](https://www.json.org/)
 
-Extract to Desktop, open "commend" folder and add some accounts to accounts.txt
+# Installation
+1. Download this repository (Alternatively use `git` to clone recursively, then you can skip step 2)
+2. Click on the `protobufs` folder and download that as well, extract the content inside the `protobufs` folder.
+3. Put it all in a folder
+4. Open a command prompt *inside* the folder
+5. Enter `npm install`
+6. Rename `config.json.example` to `config.json` and adjust it ([See below](#config))
+7. Add accounts using the [Database Manager](#database-manager)
+8. Run `node index.js`
 
-3. Open Node.js Command Prompt (this one : https://i.imgur.com/L40TN6s.png)
+# Config
+- commend:
+  - friendly `Boolean`: Whether or not to commend as friendly
+  - teaching `Boolean`: Whether or not to commend as teaching
+  - leader `Boolean`: Whether or not to commend as leader
+- account:
+  - username `String`: Username of the account you want to boost
+  - password `String`: Pasword of the account you want to boost
+  - sharedSecret `String`: Optional shared secret if the account has two factor authentication
+- method `String`: Define the method - Valid values: `LOGIN` & `SERVER` - [Read More](#botting-method)
+- target `String`: SteamID/VanityURL/ProfileURL of target
+- matchID `String`: Optional match ID, typically just `"0"` anyways - I always use `"0"`.
+- toSend `Number`: Amount of commends you want to send
+- cooldown `Number`: Cooldown in milliseconds to not reuse accounts - Currently set to 8 hours
+- betweenChunks `Number`: Cooldown in milliseconds between chunks - (I recommend a minimum of `240000` (4 minutes))
+- steamWebAPIKey `String`: Steam Web API key from [here](https://steamcommunity.com/dev/apikey)
 
-4. After that, type this command
+# Database Manager
+- `Export account list`: Export all accounts in a `username:password` format
+- `List commends for user`: List **all** accounts which have commended a specific user
+- `Reset commends for user`: Delete **all** commend entries from the database of a specific user
+- `Remove account from database`: Delete a specific account from the database including commend history
+- `Add account(s) to database`: Add accounts to the database, import from JSON file, import from `username:password` file or manually add accounts
+- `List not working accounts`: List **all** accounts which are marked as inoperational by the script
+- `Reset Database`: Will clear out **all** content of the database, resetting it to the default
+- `Exit`: Safely close database before exiting process
 
-cd desktop (enter from your keyboard)
+Then simple run it via `node databaseManager.js`, use the arrow keys & enter to navigate. Read on-screen instructions for more details.
 
-cd commend (enter from your keyboard)
+# Botting Method
+You can choose between two botting methods, `LOGIN` and `SERVER`.
 
-5. Then, type : npm start (enter from your keyboard)
-
-6. Input your Steam ID 64, something like this :7656119xxxxxxx (you can do copy and paste)
-
-If you dont know your ID 64, convert your profile link to : steamid.io
-
-7. After you paste your ID 64, hit Enter from your keyboard
-
-8. DONE, commend process starts
+- `LOGIN` will log into the targets account and automatically grab a server. `account` object **must** be filled with account details. Will ignore `target` & `serverID`.
+- `SERVER` will assume the target is on the defined server. `serverID` **must** be either a ServerIP including port or a direct ServerID. Will ignore `account`.
