@@ -1,7 +1,5 @@
 # CSGO Commend-BOT 2019 UPDATED
 
-If you're a developer and want to know how to fix your own commend bot its very simple. Just set `steam_id_gs` to a valid server steam ID, on your target's account & bot accounts. Switch after 20 commends and repeat.
-
 # Restrictions
 Valve changed it so that you now need to *be* on a server before you can commend someone. There also is a limit of the amount of commends you can send per server, that limit is set to 20. Due to this you need your targets Steam details, so you can login and change server after 20 commends. This also **heavily** impacts speed.
 
@@ -9,7 +7,7 @@ Valve changed it so that you now need to *be* on a server before you can commend
 Typically after ~20 commends it stops working all together, despite closing Steam connection and relogging. Sometimes it works for a little more, most of the time it doesn't. You can do another 20 after restarting the script.
 
 # Requirements
-- [NodeJS **v11 or later**](https://nodejs.org/)
+- [NodeJS **v11 or higher**](https://nodejs.org/)
 - [Little bit of JSON knowledge](https://www.json.org/)
 
 # Installation
