@@ -8,11 +8,6 @@ Valve changed it so that you now need to *be* on a server before you can commend
 # **This version has a major issue**
 Typically after ~20 commends it stops working all together, despite closing Steam connection and relogging. Sometimes it works for a little more, most of the time it doesn't. You can do another 20 after restarting the script.
 
-# Future
-- Add back the colors
-- Add the ability to remove commends
-- Add the ability to commend three times with one account per 24 hours instead of once every 8 hours
-
 # Requirements
 - [NodeJS **v11 or later**](https://nodejs.org/)
 - [Little bit of JSON knowledge](https://www.json.org/)
