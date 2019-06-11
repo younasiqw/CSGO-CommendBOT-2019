@@ -1,5 +1,4 @@
-# CSGO Commend Bot
-**You are viewing an experimental branch including a commend bot rewrite. Use with caution.**
+# CSGO Commend-BOT 2019 UPDATED
 
 If you're a developer and want to know how to fix your own commend bot its very simple. Just set `steam_id_gs` to a valid server steam ID, on your target's account & bot accounts. Switch after 20 commends and repeat.
 
