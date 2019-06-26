@@ -1,6 +1,7 @@
 const sqlite = require("sqlite");
 const ChildProcess = require("child_process");
 const path = require("path");
+const SteamUser = require("steam-user");
 const Target = require("./helpers/Target.js");
 const Helper = require("./helpers/Helper.js");
 const config = require("./config.json");
@@ -86,7 +87,7 @@ let db = undefined;
 		return;
 	}
 
-	console.log("\nChunking " + accountsToUse.length + " account" + (accountsToUse.length === 1 ? "" : "s") + " into groups of 20...");
+	console.log("Chunking " + accountsToUse.length + " account" + (accountsToUse.length === 1 ? "" : "s") + " into groups of 20...");
 	let chunks = helper.chunkArray(accountsToUse, 20); // Chunks are now hardcoded to 20 due to 20 commends being the limit per server
 
 	if (config.method.toUpperCase() === "LOGIN") {
@@ -99,15 +100,15 @@ let db = undefined;
 	}
 
 	for (let i = 0; i < chunks.length; i++) {
-		console.log("\nLogging in on chunk " + (i + 1) + "/" + chunks.length);
+		console.log("Logging in on chunk " + (i + 1) + "/" + chunks.length);
 
 		// Do commends
 		let result = await handleChunk(chunks[i], (typeof targetAcc === "object" ? targetAcc.accountid : targetAcc), serverToUse);
-		console.log("\nChunk " + (i + 1) + "/" + chunks.length + " finished with " + result.success.length + " successful commend" + (result.success.length === 1 ? "" : "s") + " and " + result.error.length + " failed commend" + (result.error.length === 1 ? "" : "s"));
+		console.log("Chunk " + (i + 1) + "/" + chunks.length + " finished with " + result.success.length + " successful commend" + (result.success.length === 1 ? "" : "s") + " and " + result.error.length + " failed commend" + (result.error.length === 1 ? "" : "s"));
 
 		// Wait a little bit and relog target if needed
 		if ((i + 1) < chunks.length) {
-			console.log("\nPlease wait for " + config.betweenChunks + "ms / 5 minutes... Will automatically continue the Commend process after 5 minutes!");
+			console.log("Waiting " + config.betweenChunks + "ms and relogging account...");
 			await new Promise(r => setTimeout(r, config.betweenChunks));
 		}
 	}
@@ -119,8 +120,6 @@ let db = undefined;
 
 	await db.close();
 	console.log("Done!");
-	console.log("\nThank you for using Zyphyne's Commend BOT service!");
-	console.log("Leave a + REP here - https://steamcommunity.com/id/Zyphyne");
 })();
 
 function handleChunk(chunk, toCommend, serverSteamID) {
@@ -184,7 +183,7 @@ function handleChunk(chunk, toCommend, serverSteamID) {
 			if (msg.type === "commendErr") {
 				res.error.push(msg.error);
 
-				console.log("[" + msg.username + "] Failed to commend (" + (res.error.length + res.success.length) + "/" + chunk.length + ")");
+				console.log("[" + msg.username + "] Failed to commend (" + (res.error.length + res.success.length) + "/" + chunk.length + ")", msg.error);
 
 				await db.run("UPDATE accounts SET lastCommend = " + Date.now() + " WHERE username = \"" + msg.username + "\"").catch(() => { });
 				return;
@@ -193,9 +192,23 @@ function handleChunk(chunk, toCommend, serverSteamID) {
 			if (msg.type === "failLogin") {
 				res.error.push(msg.error);
 
-				console.log("[" + msg.username + "] Failed to login and has been marked as invalid (" + (res.error.length + res.success.length) + "/" + chunk.length + ")");
+				let ignoreCodes = [
+					SteamUser.EResult.Fail,
+					SteamUser.EResult.InvalidPassword,
+					SteamUser.EResult.AccessDenied,
+					SteamUser.EResult.Banned,
+					SteamUser.EResult.AccountNotFound,
+					SteamUser.EResult.Suspended,
+					SteamUser.EResult.AccountLockedDown,
+					SteamUser.EResult.IPBanned
+				];
 
-				await db.run("UPDATE accounts SET operational = 0 WHERE \"username\" = \"" + msg.username + "\"");
+				if (typeof msg.error.eresult === "number" && ignoreCodes.includes(msg.error.eresult) === false) {
+					console.log("[" + msg.username + "] Failed to login (" + (res.error.length + res.success.length) + "/" + chunk.length + ")", msg.error);
+				} else {
+					console.log("[" + msg.username + "] Failed to login and has been marked as invalid (" + (res.error.length + res.success.length) + "/" + chunk.length + ")", msg.error);
+					await db.run("UPDATE accounts SET operational = 0 WHERE \"username\" = \"" + msg.username + "\"");
+				}
 				return;
 			}
 		});
