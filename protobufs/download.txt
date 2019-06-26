@@ -1,1 +1,2 @@
+Open this link and download the file :
 https://github.com/SteamDatabase/Protobufs/tree/d8aa67feea3ce8147072d893418ef69292213730
