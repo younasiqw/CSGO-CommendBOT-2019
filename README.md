@@ -12,9 +12,9 @@ Typically after ~20 commends it stops working all together, despite closing Stea
 
 # Installation
 1. Download this repository (Alternatively use `git` to clone recursively, then you can skip step 2)
-2. Click on the `protobufs` folder and download that as well, extract the content inside the `protobufs` folder.
+2. Open the `protobufs` folder and download the link inside the notepad, extract the content inside the `protobufs` folder.
 3. Put it all in a folder
-4. Open a command prompt *inside* the folder
+4. Open a command prompt *inside* the folder / open Node.js command prompt
 5. Enter `npm install`
 6. Rename `config.json.example` to `config.json` and adjust it ([See below](#config))
 7. Add accounts using the [Database Manager](#database-manager)
